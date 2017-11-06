@@ -14,6 +14,7 @@ public class tower : MonoBehaviour
 	{
 	    damage = 5;
 	    bullet = (GameObject)Resources.Load("prefabs/basicround", typeof(GameObject));
+        bullet.transform.position = transform.position;
 	    timebetweenbullets = 1f;
 	    timesincelastshot = Time.time;
 	}
