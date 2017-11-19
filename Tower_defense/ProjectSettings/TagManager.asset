@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Cannon
+  - HealthText
+  - GameOverText
+  - Spawner
   layers:
   - Default
   - TransparentFX

@@ -16,7 +16,7 @@ public class playerbase : MonoBehaviour
 	{
 	    health = 100;
 	    Game = FindObjectOfType<game>();
-	    textobject = FindObjectOfType<Text>();
+	    textobject = GameObject.FindGameObjectWithTag("HealthText").GetComponent<Text>();
         SetDisplay();
 	}
 	
@@ -42,7 +42,8 @@ public class playerbase : MonoBehaviour
     {
         if (health < 0)
         {
-            Game.Loss();//change me to be something better
+            Game.Loss();
+            Destroy(this);//stop updating
         }
     }
 }
