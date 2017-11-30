@@ -20,7 +20,7 @@ public class tower : MonoBehaviour
         m.color = Color.cyan;
         transform.localRotation = new Quaternion(0,180,0,0);
             
-        damage = 5;
+        damage = 3;
 	    bullet = (GameObject)Resources.Load("prefabs/basicround", typeof(GameObject));
 	    
 	    timebetweenbullets = 1f;
@@ -67,7 +67,9 @@ public class tower : MonoBehaviour
 	                	newround.SendMessage("Target", closest);
 			}
 			else{//strike with lightning!
-				closest.getComponent<enemy>().GetChained(damage, []);
+				if((closest.transform.position-transform.position).sqrdistance<1){
+					closest.getComponent<enemy>().GetChained(damage, []);
+				}
 			}
 	            }
 	        }
