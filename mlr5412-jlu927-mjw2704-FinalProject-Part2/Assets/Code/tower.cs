@@ -10,11 +10,12 @@ public class tower : MonoBehaviour
     private float timesincelastshot;
     private MeshRenderer mesh;
     private Material m;
+    private bool chaining = false;
 
     // Use this for initialization
     void Start ()
-	{
-        mesh = GetComponent<MeshRenderer>();
+    {
+    	mesh = GetComponent<MeshRenderer>();
         m = mesh.material;
         m.color = Color.cyan;
         transform.localRotation = new Quaternion(0,180,0,0);
@@ -24,8 +25,17 @@ public class tower : MonoBehaviour
 	    
 	    timebetweenbullets = 1f;
 	    timesincelastshot = Time.time;
+     }
+     
+     //setup the tower as a different type of tower // 0- normal 1- lightning
+     void SetupTowerAs(int value){
+     	if (value==1){
+		chaining = true;
 	}
+}
 	
+	
+
 	// Update is called once per frame
 	void Update () {
 		//find all the enemies
@@ -51,9 +61,14 @@ public class tower : MonoBehaviour
 	            {
 	                timesincelastshot = Time.time;
 	                //create shot
-	                GameObject newround = Instantiate(bullet, transform);
-	                newround.transform.position = transform.position;
-	                newround.SendMessage("Target", closest);
+			if(!chaining){
+	                	GameObject newround = Instantiate(bullet, transform);
+	                	newround.transform.position = transform.position;
+	                	newround.SendMessage("Target", closest);
+			}
+			else{//strike with lightning!
+				closest.getComponent<enemy>().GetChained(damage, []);
+			}
 	            }
 	        }
 	    }
