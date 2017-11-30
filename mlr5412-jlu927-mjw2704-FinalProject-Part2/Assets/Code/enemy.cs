@@ -95,4 +95,27 @@ public class enemy : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
+    void CreateChainVision(Vector3 end){
+    	start = transform.position;
+	//making it fancy with sqrmagnitude
+	ammount = (start-end).sqrmagnitude;
+	for(int i = 0; i <= ammount; i++){
+		GameObject new_spark = Instantiate(spark,Vector3.Lerp(start,end,i/ammount));
+	}
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
