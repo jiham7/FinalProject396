@@ -28,6 +28,36 @@ public class enemy : MonoBehaviour
         health = health - value;
         CheckDeath();
     }
+    
+    //function called by lightning tower that chains to nearby enemies
+    void GotChained(int value, enemy[] alreadyhit){
+    	GameObject[] allys = gameObject.FindObjectsWithTag("enemy");
+	if(allys.length()!=0){
+		bool skip;
+		//find the closest enemy that this bounce hasn't hit yet
+		enemy closest = allys[0].transform.GetComponent<enemy>();
+		float sqrclose = (closest.transform.position-transform.position).sqrdistance;
+		foreach (GameObject a in allys){
+			skip = false;
+			foreach (enemy e in alreadyhit){
+				if(a.transform.GetComponent<enemey>()==e){
+					skip = true;
+					break;
+				}
+			}
+			if (!skip){
+				newdist = (a.transform.position-transform.position).sqrdistance;
+				if(sqrclose>newdist){
+					closest = a.transform.GetComponent<enemy>();
+					sqrclose = newdist;
+				}
+			}
+		}
+		if(sqrclose<max_chain_distance){
+			closest.GotChained(value, alreadyhit + [this]);
+		}
+	}
+    }
 
     void CheckDeath()
     {
