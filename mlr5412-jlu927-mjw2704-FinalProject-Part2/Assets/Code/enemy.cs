@@ -31,6 +31,9 @@ public class enemy : MonoBehaviour
     
     //function called by lightning tower that chains to nearby enemies
     void GotChained(int value, enemy[] alreadyhit){
+    	if (alreadyhit.length>2){
+		return;
+	}
     	GameObject[] allys = gameObject.FindObjectsWithTag("enemy");
 	if(allys.length()!=0){
 		bool skip;
